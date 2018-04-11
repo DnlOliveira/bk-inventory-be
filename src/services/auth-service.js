@@ -3,8 +3,7 @@ import jwt from 'jsonwebtoken';
 export function generateToken() {
     const cred = true;
 
-    //TODO: secret key should be moved to .env file
-    const cert = 'mySecretKey';
+    const cert = process.env.SECRET_KEY;
     if (cred) {
         return jwt.sign({ foo: 'bar' }, cert);
     }
