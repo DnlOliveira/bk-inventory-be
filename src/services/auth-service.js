@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+
 export function generateToken() {
     const cred = true;
 
@@ -9,7 +10,9 @@ export function generateToken() {
     }
 }
 
+
 export function verifyToken(req, res, next) {
     console.log('verifyToken');
     next();
 }
+
