@@ -1,10 +1,11 @@
 import express from 'express';
-const router = express.Router();
 
 // controllers
 import users from './users';
 import inventoryAdmin from './inventory-admin';
 import inventorySearch from './inventory-search';
+
+const router = express.Router();
 
 router.use(users);
 router.use(inventoryAdmin);

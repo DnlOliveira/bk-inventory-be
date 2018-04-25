@@ -1,22 +1,28 @@
 import express from 'express';
-const router = express.Router();
-import { MongoClient } from 'mongodb';
-import jwt from 'jsonwebtoken';
 import { verifyToken, generateToken } from '../services/auth-service';
 
+const router = express.Router();
+
+
+const findAll = (collection, res) => {
+    collection.find({}).toArray((err, docs) => {
+        if (err) return err;
+        res.send(docs);
+    });
+};
 
 const connectToMongo = (req, res) => {
-    console.log('connectToMongo');
+    // console.log('connectToMongo');
     // const token = tokenGenerator();
     // console.log(token);
 
-    //const cert = 'myPrivateKey';
+    // const cert = 'myPrivateKey';
 
-    //synchronous
+    // synchronous
     // const token = jwt.sign({ foo: 'bar' }, cert);
     // console.log(token);
 
-    //asynchronous
+    // asynchronous
     // jwt.sign({ foo: 'bar' }, 'secretKey', (err, token) => {
     //     if (err) {
     //         console.log(err);
@@ -27,8 +33,7 @@ const connectToMongo = (req, res) => {
     //     res.send('token: ' + token);
     //     process.exit(0);
     // });
-
-
+    // res.send();
 
     // MongoClient.connect(process.env.DB_URL, (err, client) => {
     //     if (err) return err;
@@ -36,62 +41,49 @@ const connectToMongo = (req, res) => {
     //     const db = client.db(process.env.DB_NAME);
     //     const collection = db.collection(process.env.USER_COLLECTION);
     //
-    //     findAll(collection, res);
+    findAll(res);
     // });
-};
-
-const findAll = (collection, res) => {
-    collection.find({}).toArray( (err, docs) => {
-        if (err) return err;
-        res.send(docs);
-    });
 };
 
 router.get('/test', verifyToken, connectToMongo);
 
 
-
-
-
-
 // user login
-//TODO: move this and user sign up to own file
+// TODO: move this and user sign up to own file
 router.post('/login', (req, res) => {
     const collection = process.db.collection(process.env.USER_COLLECTION);
 
-    const username = req.body.username;
-    const password = req.body.password;
+    const { username, password } = req.body;
 
-    //TODO: call mongo and get credentials for username entered with correct queries
-    //this can be a separate function in auth service (verifyCredentials)
-    collection.find({username: username}).toArray( (err, docs) => {
+    // TODO: call mongo and get credentials for username entered with correct queries
+    // this can be a separate function in auth service (verifyCredentials)
+    collection.find({ username: username }).toArray((err, docs) => {
         if (err) return err;
 
-        //TODO: make sure of object's structure
+        // TODO: make sure of object's structure
         if (docs.user.username === username && docs.user.password === password) {
-            //TODO: define further details needed for signature
+            // TODO: define further details needed for signature
             const token = generateToken({
-                username: username,
-                user_type: docs.user.user_type
+                username,
+                user_type: docs.user.user_type,
             });
             res.send(token);
         } else {
-            res.send({Error: 'Credentials do not match'});
+            res.send({ Error: 'Credentials do not match' });
         }
     });
 });
 
-//TODO: could also be used to find specifc user
+// TODO: could also be used to find specifc user
 // list of all users
 router.get('/users', (req, res) => {
     const collection = process.db.collection(process.env.USER_COLLECTION);
 
-    collection.find({}).toArray( (err, docs) => {
+    collection.find({}).toArray((err, docs) => {
         if (err) return err;
 
         res.send(docs);
     });
-
 });
 
 
@@ -111,13 +103,15 @@ router.post('/users', (req, res) => {
 // update user
 router.put('/users', (req, res) => {
     const collection = process.db.collection(process.env.USER_COLLECTION);
-    collection.updateOne(req.body,
-        { $set: {}, $currentDate: { "lastModified": true } },
+    collection.updateOne(
+        req.body,
+        { $set: {}, $currentDate: { lastModified: true } },
         (err, result) => {
             if (err) return err;
 
             res.send(result);
-        });
+        }
+    );
 });
 
 

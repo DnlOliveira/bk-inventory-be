@@ -10,26 +10,30 @@ import routes from './controllers';
 require('dotenv').config();
 
 // setting up express
-let app = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(routes);
 
 
+// TODO: if connection to db fails connect to server
+// anyway but set a status of 'db not connected'
+// to alert client app
+// TODO: also set a up a retry connection
 function startMongo() {
     return MongoClient.connect(process.env.DB_URL)
         .then((client) => {
             console.log('MongoDB connected');
-            return client.db(process.env.DB_NAME)
+            return client.db(process.env.DB_NAME);
         })
         .catch((err) => {
             console.log('MongoDB Connection Failed');
             console.log({ Error: err });
-            process.exit(0);
         });
 }
 
 
+// TODO: create instance of db,
 async function main() {
     try {
         process.db = await startMongo();

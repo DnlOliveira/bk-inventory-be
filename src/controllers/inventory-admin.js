@@ -1,26 +1,26 @@
 import express from 'express';
-const router = express.Router();
 import { MongoClient } from 'mongodb';
+
+const router = express.Router();
 
 // list of all books
 router.get('/books', (req, res) => {
     MongoClient.connect(process.env.DB_URL, (err, client) => {
         if (err) return err;
-        
+
         const db = client.db(process.env.DB_NAME);
         const collection = db.collection(process.env.BOOK_COLLECTION);
 
         // fetching all books from Mongodb && returns array
-        collection.find({}).toArray( (err, docs) => {
+        collection.find({}).toArray((error, docs) => {
             if (err) return err;
 
             res.send(docs);
         });
 
         client.close();
-    });  
+    });
 });
-
 
 // add book
 router.post('/books', (req, res) => {
@@ -31,7 +31,7 @@ router.post('/books', (req, res) => {
         const collection = db.collection(process.env.BOOK_COLLECTION);
 
         // inserting new book to MongoDB
-        collection.insert(req.body, (err, result) => {
+        collection.insert(req.body, (error, result) => {
             if (err) return err;
 
             res.send(result);
@@ -50,7 +50,7 @@ router.delete('/books', (req, res) => {
         const db = client.db(process.env.DB_NAME);
         const collection = db.collection(process.env.BOOK_COLLECTION);
 
-        collection.remove(req.body, (err, result) => {
+        collection.remove(req.body, (error, result) => {
             if (err) return err;
 
             res.send(result);
@@ -71,13 +71,15 @@ router.put('/books', (req, res) => {
 
         // TODO: item to be updated might need to be changed from req.body
         // TODO: set value needs to be added
-        collection.update(req.body,
-            { $set: {}, $currentDate: { "lastModified": true } },
-            (err, result) => {
-            if (err) return err;
+        collection.update(
+            req.body,
+            { $set: {}, $currentDate: { lastModified: true } },
+            (error, result) => {
+                if (err) return err;
 
-            res.send(result);
-        });
+                res.send(result);
+            }
+        );
 
         client.close();
     });

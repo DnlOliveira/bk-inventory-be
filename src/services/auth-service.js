@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 
-//TODO: generate token only if credential entered are correct
+// TODO: generate token only if credential entered are correct
 export function generateToken() {
     const cred = true;
 
