@@ -1,57 +1,17 @@
 import express from 'express';
+import { mongoDB } from '../../config';
 import { verifyToken, generateToken } from '../services/auth-service';
+// import { mongoDb } from "../services";
 
 const router = express.Router();
+const { collections: { userCollection } } = mongoDB;
 
-
-const findAll = (collection, res) => {
-    collection.find({}).toArray((err, docs) => {
-        if (err) return err;
-        res.send(docs);
-    });
-};
-
-const connectToMongo = (req, res) => {
-    // console.log('connectToMongo');
-    // const token = tokenGenerator();
-    // console.log(token);
-
-    // const cert = 'myPrivateKey';
-
-    // synchronous
-    // const token = jwt.sign({ foo: 'bar' }, cert);
-    // console.log(token);
-
-    // asynchronous
-    // jwt.sign({ foo: 'bar' }, 'secretKey', (err, token) => {
-    //     if (err) {
-    //         console.log(err);
-    //         res.send('err: ' + err);
-    //         process.exit(0);
-    //     }
-    //     console.log(token);
-    //     res.send('token: ' + token);
-    //     process.exit(0);
-    // });
-    // res.send();
-
-    // MongoClient.connect(process.env.DB_URL, (err, client) => {
-    //     if (err) return err;
-    //
-    //     const db = client.db(process.env.DB_NAME);
-    //     const collection = db.collection(process.env.USER_COLLECTION);
-    //
-    findAll(res);
-    // });
-};
-
-router.get('/test', verifyToken, connectToMongo);
-
+// router.get('/test', verifyToken, connectToMongo);
 
 // user login
 // TODO: move this and user sign up to own file
 router.post('/login', (req, res) => {
-    const collection = process.db.collection(process.env.USER_COLLECTION);
+    const collection = process.db.collection(userCollection);
 
     const { username, password } = req.body;
 
@@ -64,7 +24,7 @@ router.post('/login', (req, res) => {
         if (docs.user.username === username && docs.user.password === password) {
             // TODO: define further details needed for signature
             const token = generateToken({
-                username,
+                username: username,
                 user_type: docs.user.user_type,
             });
             res.send(token);
@@ -77,9 +37,10 @@ router.post('/login', (req, res) => {
 // TODO: could also be used to find specifc user
 // list of all users
 router.get('/users', (req, res) => {
-    const collection = process.db.collection(process.env.USER_COLLECTION);
+    // const collection = process.db.collection(userCollection);
+    const db = req.app.locals.db;
 
-    collection.find({}).toArray((err, docs) => {
+    db.collection(userCollection).find({}).toArray((err, docs) => {
         if (err) return err;
 
         res.send(docs);
@@ -89,7 +50,7 @@ router.get('/users', (req, res) => {
 
 // create user
 router.post('/users', (req, res) => {
-    const collection = process.db.collection(process.env.USER_COLLECTION);
+    const collection = process.db.collection(userCollection);
 
     collection.insert(req.body, (err, result) => {
         if (err) return err;
@@ -102,7 +63,7 @@ router.post('/users', (req, res) => {
 // TODO: What kind of user attribute needs to be updated?
 // update user
 router.put('/users', (req, res) => {
-    const collection = process.db.collection(process.env.USER_COLLECTION);
+    const collection = process.db.collection(userCollection);
     collection.updateOne(
         req.body,
         { $set: {}, $currentDate: { lastModified: true } },
@@ -118,7 +79,7 @@ router.put('/users', (req, res) => {
 // TODO: deleteOne func needs query
 // delete user
 router.delete('/users', (req, res) => {
-    const collection = process.db.collection(process.env.USER_COLLECTION);
+    const collection = process.db.collection(userCollection);
     collection.deleteOne({}, (err, result) => {
         if (err) return err;
 
