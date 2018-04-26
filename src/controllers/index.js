@@ -3,24 +3,21 @@
 import express from 'express';
 
 // controllers
-import users from './users';
-import inventoryAdmin from './inventory-admin';
-import inventorySearch from './inventory-search';
+import users from './accounts/users';
+import inventoryAdmin from './inventory/inventory-admin';
+import inventorySearch from './inventory/inventory-search';
+
+// helpers
+import { verifyToken } from '../services/auth-service';
 
 const router = express.Router();
 
-router.use(users);
+router.use(verifyToken, users);
 router.use(inventoryAdmin);
 router.use(inventorySearch);
 
-// TODO: these should probably redirect somewhere else.
-// TODO: maybe login or a home page explaining product.
-// /info might not even be necessary
-// home routes
-router.get('/', (req, res) => {
-    res.send('Homepage');
-});
 router.get('/info', (req, res) => {
+    // display app's health
     res.send('Info');
 });
 

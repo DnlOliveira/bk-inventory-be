@@ -19,6 +19,7 @@ app.use(routes);
 // anyway but set a status of 'db not connected'
 // to alert client app
 // TODO: also set a up a retry connection
+
 function startMongo() {
     return MongoClient.connect(mongoDB.url)
         .then((client) => {
