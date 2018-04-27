@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d146238e-5a1e-476b-a970-f976412e1c1e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/config/index.js" afterPath="$PROJECT_DIR$/config/index.js" />
       <change beforePath="$PROJECT_DIR$/src/controllers/accounts/sign-up.js" afterPath="$PROJECT_DIR$/src/controllers/accounts/sign-up.js" />
       <change beforePath="$PROJECT_DIR$/src/controllers/accounts/users.js" afterPath="$PROJECT_DIR$/src/controllers/accounts/users.js" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js" afterPath="$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js" />
+      <change beforePath="$PROJECT_DIR$/src/services/auth-service.js" afterPath="$PROJECT_DIR$/src/services/auth-service.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,8 +40,8 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/controllers/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="220">
-                  <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+                <state relative-caret-position="264">
+                  <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
                   <folding>
                     <element signature="e#62#99#0" expanded="true" />
                   </folding>
@@ -49,13 +49,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="inventory-admin.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="inventory-admin.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="44">
-                  <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+                <state relative-caret-position="198">
+                  <caret line="9" column="62" lean-forward="true" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
                   <folding>
-                    <element signature="e#0#30#0" expanded="true" />
+                    <element signature="e#15#45#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -64,22 +64,22 @@
           <file leaf-file-name="auth-service.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/services/auth-service.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="56">
-                  <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+                <state relative-caret-position="726">
+                  <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
                   <folding>
-                    <element signature="e#0#31#0" expanded="true" />
+                    <element signature="e#15#46#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/controllers/accounts/users.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="484">
-                  <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+                <state relative-caret-position="-67">
+                  <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
                   <folding>
-                    <element signature="e#0#30#0" expanded="true" />
+                    <element signature="e#15#45#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -88,10 +88,10 @@
           <file leaf-file-name="sign-up.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/controllers/accounts/sign-up.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="726">
-                  <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
                   <folding>
-                    <element signature="e#0#30#0" expanded="true" />
+                    <element signature="e#15#45#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -150,13 +150,14 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/controllers/inventory/inventory-user.js" />
-        <option value="$PROJECT_DIR$/src/services/auth-service.js" />
         <option value="$PROJECT_DIR$/src/controllers/index.js" />
         <option value="$PROJECT_DIR$/src/controllers/accounts/logging.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/config/index.js" />
-        <option value="$PROJECT_DIR$/src/controllers/accounts/sign-up.js" />
+        <option value="$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js" />
         <option value="$PROJECT_DIR$/src/controllers/accounts/users.js" />
+        <option value="$PROJECT_DIR$/src/controllers/accounts/sign-up.js" />
+        <option value="$PROJECT_DIR$/src/services/auth-service.js" />
       </list>
     </option>
   </component>
@@ -313,12 +314,12 @@
       <workItem from="1524670097859" duration="15569000" />
       <workItem from="1524746452473" duration="20113000" />
       <workItem from="1524832568083" duration="11623000" />
-      <workItem from="1524857270915" duration="1098000" />
+      <workItem from="1524857270915" duration="1326000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108181000" />
+    <option name="totallyTimeSpent" value="108409000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -401,7 +402,7 @@
         <state relative-caret-position="1012">
           <caret line="46" column="2" lean-forward="true" selection-start-line="46" selection-start-column="2" selection-end-line="46" selection-end-column="2" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -438,7 +439,7 @@
         <state relative-caret-position="368">
           <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -490,7 +491,7 @@
         <state relative-caret-position="897">
           <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -553,7 +554,7 @@
         <state relative-caret-position="897">
           <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -685,16 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-          <folding>
-            <element signature="e#62#99#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/inventory/inventory-user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -709,26 +700,6 @@
           <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#15#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -759,30 +730,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/accounts/sign-up.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="33" column="19" lean-forward="false" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/auth-service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+        <state relative-caret-position="726">
+          <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#15#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/accounts/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="-67">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding>
+            <element signature="e#62#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/inventory/inventory-admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="62" lean-forward="true" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
+          <folding>
+            <element signature="e#15#45#0" expanded="true" />
           </folding>
         </state>
       </provider>

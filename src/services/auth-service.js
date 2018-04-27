@@ -1,6 +1,7 @@
+'use strict';
+
 import jwt from 'jsonwebtoken';
 import { secretKey } from '../../config';
-
 
 // TODO: look at type of acc to generate diff tokens
 export function generateToken(userInfo) {
@@ -11,7 +12,6 @@ export function generateToken(userInfo) {
 
     return jwt.sign(user, secretKey);
 }
-
 
 export function verifyToken(req, res, next) {
     if (!req.headers.authorization) {
@@ -32,4 +32,3 @@ export function verifyToken(req, res, next) {
         next();
     });
 }
-

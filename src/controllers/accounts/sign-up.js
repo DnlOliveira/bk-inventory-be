@@ -1,3 +1,5 @@
+'use strict';
+
 import express from 'express';
 import { mongoDB } from '../../../config/index';
 import { generateToken } from '../../services/auth-service';
