@@ -6,11 +6,6 @@ const { collections: { userCollection } } = mongoDB;
 
 // list of all or specific user
 router.get('/users/:username?', (req, res) => {
-    if (req.error) {
-        res.send(req.error);
-        return;
-    }
-
     let query = {};
     if (req.params.username) {
         query = {
@@ -20,7 +15,10 @@ router.get('/users/:username?', (req, res) => {
 
     const { db } = req.app.locals;
     db.collection(userCollection).find(query).toArray((err, docs) => {
-        if (err) return err;
+        if (err) {
+            res.status(400).send({ Error: 'Unable to Find User' });
+            return;
+        }
 
         res.send(docs);
     });
@@ -66,6 +64,5 @@ router.deleteOne('/users', async (req, res) => {
         res.status(400).send({ Error: 'Unable to delete document' });
     }
 });
-
 
 export default router;
