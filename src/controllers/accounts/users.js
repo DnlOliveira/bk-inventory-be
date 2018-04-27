@@ -4,41 +4,67 @@ import { mongoDB } from '../../../config/index';
 const router = express.Router();
 const { collections: { userCollection } } = mongoDB;
 
-// TODO: should accept filters to query specifics
-// list of all users
-router.get('/users', (req, res) => {
+// list of all or specific user
+router.get('/users/:username?', (req, res) => {
+    if (req.error) {
+        res.send(req.error);
+        return;
+    }
+
+    let query = {};
+    if (req.params.username) {
+        query = {
+            name: req.params.username,
+        };
+    }
+
     const { db } = req.app.locals;
-    db.collection(userCollection).find({}).toArray((err, docs) => {
+    db.collection(userCollection).find(query).toArray((err, docs) => {
         if (err) return err;
 
         res.send(docs);
     });
 });
 
-// TODO: What kind of user attribute needs to be updated?
+// TODO: User structure should differ to
+// {id, username, email, password, user_type} with id as unique identifier
 // update user
-router.put('/users', (req, res) => {
-    const { db } = req.app.locals;
-    db.collection(userCollection).updateOne(
-        req.body,
-        { $set: {}, $currentDate: { lastModified: true } },
-        (err, result) => {
-            if (err) return err;
+router.put('/users', async (req, res) => {
+    const filter = { id: req.body.decoded.id };
 
-            res.send(result);
-        }
-    );
+    let update = {};
+    if (req.body.password) update.password = req.body.password;
+    if (req.body.name) update.name = req.body.name;
+    if (req.body.email) update.email = req.body.email;
+
+    const { db } = req.app.locals;
+
+    try {
+        const result = await db.collection(userCollection).updateOne(
+            filter,
+            { $set: update, $currentDate: { lastModified: true } },
+            { upsert: false }
+        );
+        res.send({ result });
+    }
+    catch (err) {
+        res.status(400).send({ Error: 'Unable to update document' });
+    }
 });
 
-// TODO: deleteOne func needs query
-// delete user
-router.delete('/users', (req, res) => {
-    const { db } = req.app.locals;
-    db.collection(userCollection).deleteOne({}, (err, result) => {
-        if (err) return err;
 
-        res.send(result);
-    });
+// delete user
+router.deleteOne('/users', async (req, res) => {
+    const { db } = req.app.locals;
+    const filter = { id: req.body.decoded.id };
+
+    try {
+        const result = await db.collection(userCollection).deleteOne(filter);
+        res.send({ result });
+    }
+    catch (err) {
+        res.status(400).send({ Error: 'Unable to delete document' });
+    }
 });
 
 

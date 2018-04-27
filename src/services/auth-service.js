@@ -2,20 +2,18 @@ import jwt from 'jsonwebtoken';
 import { secretKey } from '../../config';
 
 
-// TODO: generate token only if credential entered are correct
-export function generateToken() {
-    const cred = true;
+// TODO: look at type of acc to generate diff tokens
+export function generateToken(userInfo) {
+    console.log(userInfo);
+    const user = {
+        id: req.body.id,
+    };
 
-    const cert = secretKey;
-    if (cred) {
-        return jwt.sign({ foo: 'bar' }, cert);
-    }
+    return jwt.sign(user, secretKey);
 }
 
 
 export function verifyToken(req, res, next) {
-    console.log(req.headers.authorization);
-
     if (!req.headers.authorization) {
         // res.sendStatus(400);
         res.status(400).send({
@@ -25,8 +23,13 @@ export function verifyToken(req, res, next) {
 
     const token = req.headers.authorization;
 
-    jwt.verify(token, secretKey, (decoded) => {
-
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            res.status(400).send({ Error: 'Invalid Token' });
+            return;
+        }
+        req.body.decoded = decoded;
+        next();
     });
 }
 

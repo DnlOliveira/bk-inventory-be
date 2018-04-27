@@ -13,8 +13,8 @@ import { verifyToken } from '../services/auth-service';
 const router = express.Router();
 
 router.use(verifyToken, users);
-router.use(inventoryAdmin);
-router.use(inventorySearch);
+router.use(verifyToken, inventoryAdmin);
+router.use(verifyToken, inventorySearch);
 
 router.get('/info', (req, res) => {
     // display app's health
