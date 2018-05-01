@@ -54,7 +54,7 @@ router.put('/users', async (req, res) => {
 
 
 // delete user
-router.deleteOne('/users', async (req, res) => {
+router.delete('/users', async (req, res) => {
     const { db } = req.app.locals;
     const filter = { id: req.body.decoded.id };
 
