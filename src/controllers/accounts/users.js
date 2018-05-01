@@ -46,8 +46,7 @@ router.put('/users', async (req, res) => {
             { upsert: false }
         );
         res.send({ result });
-    }
-    catch (err) {
+    } catch (err) {
         res.status(400).send({ Error: 'Unable to update document' });
     }
 });
@@ -61,8 +60,7 @@ router.delete('/users', async (req, res) => {
     try {
         const result = await db.collection(userCollection).deleteOne(filter);
         res.send({ result });
-    }
-    catch (err) {
+    } catch (err) {
         res.status(400).send({ Error: 'Unable to delete document' });
     }
 });

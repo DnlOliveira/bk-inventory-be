@@ -3,8 +3,8 @@ import { MongoClient } from 'mongodb';
 
 const router = express.Router();
 
-// list of books by author or title
-router.get('/books/:term', (req, res) => {
+// list of books by author or title or all books
+router.get('/books/:term?', (req, res) => {
     MongoClient.connect(process.env.DB_URL, (err, client) => {
         if (err) return err;
 

@@ -8,17 +8,23 @@ import inventoryAdmin from './inventory/inventory-admin';
 import inventorySearch from './inventory/inventory-search';
 
 // helpers
-import { verifyToken } from '../services/auth-service';
+import { verifyToken, generateToken } from '../services/auth-service';
 
 const router = express.Router();
 
-router.use(verifyToken, users);
-router.use(verifyToken, inventoryAdmin);
-router.use(verifyToken, inventorySearch);
+router.use('/users', verifyToken);
+router.use('/admin', verifyToken);
+router.use(users);
+router.use(inventoryAdmin);
+router.use(inventorySearch); // open route
+
 
 router.get('/info', (req, res) => {
     // display app's health
-    res.send('Info');
+
+    res.send(generateToken({
+        id: 'doliveira',
+    }));
 });
 
 export default router;

@@ -5,27 +5,8 @@ import { MongoClient } from 'mongodb';
 
 const router = express.Router();
 
-// list of all books
-router.get('/books', (req, res) => {
-    MongoClient.connect(process.env.DB_URL, (err, client) => {
-        if (err) return err;
-
-        const db = client.db(process.env.DB_NAME);
-        const collection = db.collection(process.env.BOOK_COLLECTION);
-
-        // fetching all books from Mongodb && returns array
-        collection.find({}).toArray((error, docs) => {
-            if (err) return err;
-
-            res.send(docs);
-        });
-
-        client.close();
-    });
-});
-
 // add book
-router.post('/books', (req, res) => {
+router.post('/admin/books', (req, res) => {
     MongoClient.connect(process.env.DB_URL, (err, client) => {
         if (err) return err;
 
@@ -45,7 +26,7 @@ router.post('/books', (req, res) => {
 
 
 // remove book
-router.delete('/books', (req, res) => {
+router.delete('/admin/books', (req, res) => {
     MongoClient.connect(process.env.DB_URL, (err, client) => {
         if (err) return err;
 
@@ -64,7 +45,7 @@ router.delete('/books', (req, res) => {
 
 
 // update book
-router.put('/books', (req, res) => {
+router.put('/admin/books', (req, res) => {
     MongoClient.connect(process.env.DB_URL, (err, client) => {
         if (err) return err;
 
