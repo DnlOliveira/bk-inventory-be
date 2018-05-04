@@ -24,7 +24,8 @@ router.post('/users', (req, res) => {
     const user = {
         username: req.body.username,
         password: req.body.password,
-        name: req.body.name,
+        fname: req.body.fname,
+        lname: req.body.lname,
         email: req.body.email,
         comments: [],
         favorites: [],

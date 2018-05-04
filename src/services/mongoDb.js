@@ -4,29 +4,30 @@ import { MongoClient } from 'mongodb';
 import { mongoDB } from '../../config';
 
 export default class MongoDB {
-    constructor() {
+    constructor(mongoUrl) {
         this.url = mongoDB.url;
         this.connection = null;
-        this.mongoClient = MongoClient;
+        this.mongoClient = new MongoClient(mongoUrl);
     }
-    connect(next) {
+
+    connect() {
         if (this.connection) return this.connection;
 
-        this.mongoClient.connect(
-            this.url,
-            {
-                keepAlive: true,
-                autoReconnect: true,
-                reconnectInterval: mongoDB.reconnectInterval,
-            }
-        ).then(async (client) => {
-            console.log('MongoDB Connected');
-            this.connection = await client.db(mongoDB.name);
-            next(this.connection);
-        });
+        return this.mongoClient.connect()
+            .then(async (client) => {
+                console.log('MongoDB Connected');
+                this.connection = client.db(mongoDB.name);
+                return this.connection;
+            })
+            .catch((err) => {
+                console.log('MongoDB Connection Failed');
+                console.log({ Error: err });
+                return false;
+            });
     }
 
     collection(collectionName) {
         return this.connection.collection(collectionName);
+        // return 'collection returned';
     }
 }

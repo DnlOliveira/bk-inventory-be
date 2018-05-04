@@ -10,9 +10,7 @@ const { collections: { userCollection } } = mongoDB;
 router.get('/users/:username?', (req, res) => {
     let query = {};
     if (req.params.username) {
-        query = {
-            name: req.params.username,
-        };
+        query = { name: req.params.username };
     }
 
     const { db } = req.app.locals;
@@ -32,7 +30,7 @@ router.get('/users/:username?', (req, res) => {
 router.put('/users', async (req, res) => {
     const filter = { id: req.body.decoded.id };
 
-    let update = {};
+    const update = {};
     if (req.body.password) update.password = req.body.password;
     if (req.body.name) update.name = req.body.name;
     if (req.body.email) update.email = req.body.email;

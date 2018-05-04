@@ -1,26 +1,21 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
+import { mongoDB } from '../../../config';
 
 const router = express.Router();
+const { collections: { bookCollection } } = mongoDB;
 
 // list of books by author or title or all books
 router.get('/books/:term?', (req, res) => {
-    MongoClient.connect(process.env.DB_URL, (err, client) => {
+    const { db } = req.app.locals;
+    let query = {};
+    if (req.params) {
+        query = { title: req.params };
+    }
+
+    db.collection(bookCollection).find(query).toArray((err, docs) => {
         if (err) return err;
 
-        const db = client.db(process.env.DB_NAME);
-        const collection = db.collection(process.env.BOOK_COLLECTION);
-
-        // TODO: queries need to be changed from req.body
-        // fetching related books from Mongodb && returns array
-        collection.find({ $or: [{ author: req.body }, { title: req.body }] })
-            .toArray((error, docs) => {
-                if (err) return err;
-
-                res.send(docs);
-            });
-
-        client.close();
+        res.send(docs);
     });
 });
 

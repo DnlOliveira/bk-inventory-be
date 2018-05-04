@@ -13,7 +13,7 @@ export const isLocal = stage === 'local' || process.env.LOCAL_RUN;
 
 export const app = {
     name: 'Inventory',
-    version : '1.0',
+    version : process.env.VERSION,
 };
 
 export const mongoDB = {

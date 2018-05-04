@@ -14,14 +14,14 @@ router.post('/login', (req, res) => {
 
     // TODO: call mongo and get credentials for username entered with correct queries
     // this can be a separate function in auth service (verifyCredentials)
-    db.collection(userCollection).findOne({ username: username }).toArray(async (err, docs) => {
+    db.collection(userCollection).findOne({ username }).toArray(async (err, docs) => {
         if (err) return err;
 
         // TODO: make sure of object's structure
         if (docs.user.username === username && docs.user.password === password) {
             // TODO: define further details needed for signature
             const token = await generateToken({
-                username: username,
+                username,
                 user_type: docs.user.user_type,
             });
             res.send({ docs, token });
