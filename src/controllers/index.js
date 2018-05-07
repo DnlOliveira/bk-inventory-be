@@ -21,16 +21,9 @@ router.use(inventorySearch); // open route
 
 
 router.get('/info', (req, res) => {
-    // display app's health
-
     // res.send(generateToken({
     //     id: 'doliveira',
     // }));
-
-    // example of how calls will work
-    // const db = req.app.locals.db;
-    // const connection = db.connect();
-    // const collection = db.collection('users');
 
     const { db } = req.app.locals;
     const health = {

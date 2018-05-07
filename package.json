@@ -11,7 +11,7 @@
     "container:build": "docker-compose up -d --build",
     "container": "docker-compose up -d"
   },
-  "author": "",
+  "author": "DOliveira",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
