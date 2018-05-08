@@ -25,3 +25,10 @@ export const mongoDB = {
     },
     reconnectInterval: process.env.RECONNECT_INTERVAL || 1000,
 };
+
+export const users = {
+    accountTypes: {
+        standard: 'standard',
+        admin: 'admin',
+    },
+};

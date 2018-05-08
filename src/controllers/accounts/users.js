@@ -1,7 +1,7 @@
 'use strict';
 
 import express from 'express';
-import { mongoDB } from '../../../config/index';
+import { mongoDB } from '../../../config';
 
 const router = express.Router();
 const { collections: { userCollection } } = mongoDB;

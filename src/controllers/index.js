@@ -8,24 +8,17 @@ import inventoryAdmin from './inventory/inventory-admin';
 import inventorySearch from './inventory/inventory-search';
 
 // helpers
-import { verifyToken } from '../services/auth-service';
+import { generateToken, verifyToken, verifyCredentials } from '../services/auth-service';
 import { app, stage } from '../../config';
 
 const router = express.Router();
 
-// TODO: instead of user specific token, do app token instead.
-// let UI handle sessions
-// router.use(verifyToken);
+router.use(verifyToken);
 router.use(users);
 router.use(inventoryAdmin);
 router.use(inventorySearch); // open route
 
-
 router.get('/info', (req, res) => {
-    // res.send(generateToken({
-    //     id: 'doliveira',
-    // }));
-
     const { db } = req.app.locals;
     const health = {
         Name:    app.name,
@@ -39,8 +32,20 @@ router.get('/info', (req, res) => {
     } else {
         health.MongoDB = 'Not Connected';
     }
-
     res.send(health);
+});
+
+router.post('/token', (req, res) => {
+    if (!req.body.userName && !req.body.hash) {
+        res.status(400).send({ Error: 'Missing Credentials' });
+        return;
+    }
+
+    verifyCredentials(req.app.locals.db, req.body).then((userInfo) => {
+        generateToken(userInfo).then((token) => {
+            res.send({ token });
+        }).catch((err) => res.status(400).send(err));
+    }).catch((err) => res.status(400).send(err));
 });
 
 export default router;

@@ -1,5 +1,9 @@
 'use strict';
 
+import { users } from '../../config';
+
+const { accountTypes: { standard } } = users;
+
 class User {
     constructor(params) {
         this.userName = params.userName;
@@ -7,6 +11,7 @@ class User {
         this.lastName = params.lastName;
         this.email = params.email;
         this.hash = params.hash;
+        this.accountType = params.accountType || standard;
         this.comments = [];
         this.favorites = []; // book instances will go inside
         this.createdDate = new Date(Date.now()).toISOString();
