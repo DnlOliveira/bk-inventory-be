@@ -10,27 +10,24 @@ const { collections: { userCollection } } = mongoDB;
 router.post('/login', (req, res) => {
     const { db } = req.app.locals;
 
-    const { username, password } = req.body;
+    const { userName, hash } = req.body;
 
-    // TODO: call mongo and get credentials for username entered with correct queries
-    // this can be a separate function in auth service (verifyCredentials)
-    db.collection(userCollection).findOne({ username }).toArray(async (err, docs) => {
+    db.collection(userCollection).findOne({ userName }).toArray(async (err, doc) => {
         if (err) return err;
 
-        // TODO: make sure of object's structure
-        if (docs.user.username === username && docs.user.password === password) {
-            // TODO: define further details needed for signature
-            const token = await generateToken({
-                username,
-                user_type: docs.user.user_type,
-            });
-            res.send({ docs, token });
+        if (doc.userName === userName && doc.hash === hash) {
+            const userInfo = {
+                userName: doc.userName,
+                firstName: doc.firstName,
+                lastName: doc.lastName,
+                email: doc.email,
+                favorites: doc.favorites,
+                createdDate: doc.createdDate,
+                comments: doc.comments,
+            };
+            res.send({ userInfo });
         } else {
             res.send({ Error: 'Credentials do not match' });
         }
     });
-});
-
-router.post('/logout', (req, res) => {
-
 });

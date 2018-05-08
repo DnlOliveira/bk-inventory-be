@@ -28,6 +28,5 @@ export default class MongoDB {
 
     collection(collectionName) {
         return this.connection.collection(collectionName);
-        // return 'collection returned';
     }
 }

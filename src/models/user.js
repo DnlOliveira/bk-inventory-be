@@ -9,6 +9,7 @@ class User {
         this.hash = params.hash;
         this.comments = [];
         this.favorites = []; // book instances will go inside
+        this.createdDate = new Date(Date.now()).toISOString();
     }
 }
 

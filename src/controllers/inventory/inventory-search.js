@@ -7,6 +7,7 @@ const { collections: { bookCollection } } = mongoDB;
 // list of books by author or title or all books
 router.get('/books/:term?', (req, res) => {
     const { db } = req.app.locals;
+
     let query = {};
     if (req.params) {
         query = { title: req.params };

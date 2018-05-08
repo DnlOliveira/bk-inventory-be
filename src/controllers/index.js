@@ -13,8 +13,9 @@ import { app, stage } from '../../config';
 
 const router = express.Router();
 
-router.use('/users', verifyToken);
-router.use('/admin', verifyToken);
+// TODO: instead of user specific token, do app token instead.
+// let UI handle sessions
+// router.use(verifyToken);
 router.use(users);
 router.use(inventoryAdmin);
 router.use(inventorySearch); // open route

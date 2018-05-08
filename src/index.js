@@ -1,6 +1,5 @@
 'use strict';
 
-// import serverless from 'serverless-http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { mongoDB, port as PORT } from '../config';
@@ -16,7 +15,7 @@ app.use(routes);
 // anyway but set a status of 'db not connected'
 // to alert client app
 
-async function main() {
+(async function main() {
     try {
         app.locals.db = await new MongoDB(mongoDB.url);
         app.locals.db.connect();
@@ -25,9 +24,4 @@ async function main() {
         console.log('Error starting up server');
         console.log({ Error: err });
     }
-}
-
-main();
-// export default {
-//     handler: serverless(app),
-// };
+}());
