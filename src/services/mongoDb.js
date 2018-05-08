@@ -22,7 +22,6 @@ export default class MongoDB {
             .catch((err) => {
                 console.log('MongoDB Connection Failed');
                 console.log({ Error: err });
-                return false;
             });
     }
 

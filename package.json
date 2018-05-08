@@ -9,7 +9,8 @@
     "lint:fix": "eslint . --fix",
     "start": "babel-node ./src/index.js",
     "container:build": "docker-compose up -d --build",
-    "container": "docker-compose up -d"
+    "container": "docker-compose up -d",
+    "seed": "babel-node ./seed/index.js"
   },
   "author": "DOliveira",
   "license": "ISC",
