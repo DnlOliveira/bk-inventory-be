@@ -36,12 +36,15 @@ router.get('/info', (req, res) => {
 });
 
 router.post('/token', (req, res) => {
-    if (!req.body.userName && !req.body.hash) {
+    const mongoConnection = req.app.locals.db;
+    const { userName, hash } = req.body;
+
+    if (!userName || !hash) {
         res.status(400).send({ Error: 'Missing Credentials' });
         return;
     }
 
-    verifyCredentials(req.app.locals.db, req.body).then((userInfo) => {
+    verifyCredentials(mongoConnection, { userName, hash }).then((userInfo) => {
         generateToken(userInfo).then((token) => {
             res.send({ token });
         }).catch((err) => res.status(400).send(err));
