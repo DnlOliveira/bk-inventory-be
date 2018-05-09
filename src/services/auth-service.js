@@ -56,8 +56,8 @@ export function verifyCredentials(db, credentials) {
     const { userName, hash } = credentials;
 
     return new Promise((resolve, reject) => {
-        db.collection(userCollection).findOne({ userName }, (err, doc) => {
-            if (err) {
+        db.collection(userCollection).findOne({ name: userName }, (err, doc) => {
+            if (!doc) {
                 const error = { Error: 'Username Not Found' };
                 reject(error);
                 return;

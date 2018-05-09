@@ -16,7 +16,7 @@ const router = express.Router();
 router.use(verifyToken);
 router.use(users);
 router.use(inventoryAdmin);
-router.use(inventorySearch); // open route
+router.use(inventorySearch);
 
 router.get('/info', (req, res) => {
     const { db } = req.app.locals;
@@ -40,7 +40,7 @@ router.post('/token', (req, res) => {
         res.status(400).send({ Error: 'Missing Credentials' });
         return;
     }
-
+    console.log('token1');
     verifyCredentials(req.app.locals.db, req.body).then((userInfo) => {
         generateToken(userInfo).then((token) => {
             res.send({ token });
