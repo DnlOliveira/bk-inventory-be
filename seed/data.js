@@ -76,7 +76,12 @@ const bookData = [
     },
 ];
 
+const commentData = [
+
+];
+
 export {
     userData,
     bookData,
+    commentData,
 };

@@ -21,7 +21,6 @@ export function generateToken(userInfo) {
         try {
             resolve(jwt.sign(newToken, secretKey));
         } catch (err) {
-            console.log(err);
             const error = {
                 Error: 'Could Not Generate Token Account info Insufficient',
             };
