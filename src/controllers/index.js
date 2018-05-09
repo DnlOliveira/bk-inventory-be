@@ -40,7 +40,7 @@ router.post('/token', (req, res) => {
         res.status(400).send({ Error: 'Missing Credentials' });
         return;
     }
-    console.log('token1');
+
     verifyCredentials(req.app.locals.db, req.body).then((userInfo) => {
         generateToken(userInfo).then((token) => {
             res.send({ token });
