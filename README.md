@@ -1,14 +1,17 @@
+# Library Management API
 
-## Running through Docker ##
-- 'docker-compose up'
+## Run it Locally:
+1. Start MongoDB
+2. Set environment variables
+3. `npm install`
+4. `npm start`
 
-# Rebuild the image (once changes are applied)
-- 'docker-compose up --build'
+## Run it in a Docker container
+1. Start Docker
+2. Start MongoDB
+3. Set environment variables
+4. Run  `docker-compose up`
 
-
-## Running Locally ##
-- Make sure mongoDB is running 'mongod'
-- Set mongoDB url in .env to 'mongodb://localhost'
-- run 'npm install'
-- run 'npm start'
-
+Rebuild image after changes:
+`docker-compose up --build`
+ 
