@@ -7,7 +7,7 @@ import users from './accounts/users';
 import inventoryAdmin from './inventory/inventory-admin';
 import inventorySearch from './inventory/inventory-search';
 
-// helpers
+// services
 import { generateToken, verifyToken, verifyCredentials } from '../services/auth-service';
 import { app, stage } from '../../config';
 
@@ -35,7 +35,7 @@ router.get('/info', (req, res) => {
     res.send(health);
 });
 
-router.post('/token', (req, res) => {
+router.post('/token', async (req, res) => {
     const mongoConnection = req.app.locals.db;
     const { userName, hash } = req.body;
 
@@ -44,11 +44,17 @@ router.post('/token', (req, res) => {
         return;
     }
 
-    verifyCredentials(mongoConnection, { userName, hash }).then((userInfo) => {
-        generateToken(userInfo).then((token) => {
-            res.send({ token });
-        }).catch((err) => res.status(400).send(err));
-    }).catch((err) => res.status(400).send(err));
+    const userInfo = await verifyCredentials(mongoConnection, { userName, hash }).catch((err) => {
+        res.status(400).send(err);
+    });
+    const token = await generateToken(userInfo).catch((err) => res.status(400).send(err));
+    res.send({ token });
+
+    // verifyCredentials(mongoConnection, { userName, hash }).then((userInfo) => {
+    //     generateToken(userInfo).then((token) => {
+    //         res.send({ token });
+    //     }).catch((err) => res.status(400).send(err));
+    // }).catch((err) => res.status(400).send(err));
 });
 
 export default router;

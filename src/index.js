@@ -11,10 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(routes);
 
-// TODO: if connection to db fails connect to server
-// anyway but set a status of 'db not connected'
-// to alert client app
-
+// start app
 (async function main() {
     const mongodb = new MongoDB(mongoDB.url);
     const connection = await mongodb.connect();
