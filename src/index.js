@@ -16,12 +16,7 @@ app.use(routes);
 // to alert client app
 
 (async function main() {
-    try {
-        app.locals.db = await new MongoDB(mongoDB.url);
-        app.locals.db.connect();
-        app.listen(PORT, () => console.log('App listening on port %s', PORT));
-    } catch (err) {
-        console.log('Error starting up server');
-        console.log({ Error: err });
-    }
+    const mongodb = new MongoDB(mongoDB.url);
+    const connection = await mongodb.connect();
+    app.listen(PORT, () => console.log('App listening on port %s', PORT));
 }());
