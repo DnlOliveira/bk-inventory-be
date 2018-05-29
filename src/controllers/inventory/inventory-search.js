@@ -9,12 +9,15 @@ router.get('/books/:term?', (req, res) => {
     const { db } = req.app.locals;
 
     let query = {};
-    if (req.params) {
+    if (req.params.term) {
         query = { title: req.params };
     }
 
     db.collection(bookCollection).find(query).toArray((err, docs) => {
-        if (err) return err;
+        if (err) {
+            res.status(400).send({ Error: 'Unable to Find Book' });
+            return;
+        }
 
         res.send(docs);
     });

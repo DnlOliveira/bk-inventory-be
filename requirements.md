@@ -1,8 +1,7 @@
 # Requirements
 
 ## Auth
-1. Protect all endpoints with jwt token with the exception of /token which used for
-generating tokens.
+1. Protect all endpoints with jwt token with the exception of /token which used for generating tokens.
 2. A single token type for client-app is sufficient.
 
 # Functionality

@@ -6,23 +6,20 @@ import { secretKey, mongoDB, users } from '../../config';
 const { collections: { userCollection } } = mongoDB;
 const { accountTypes: { admin, standard } } = users;
 
+// TODO: Set an expiration data to token
 export function generateToken(userInfo) {
     const newToken = {
         userName: userInfo.name,
         expDate: 'date script',
-        tokenType: null,
+        tokenType: 'standard',
     };
-
-    if (userInfo.accountType === admin) {
-        newToken.tokenType = admin;
-    } else { newToken.tokenType = standard; }
 
     return new Promise((resolve, reject) => {
         try {
             resolve(jwt.sign(newToken, secretKey));
         } catch (err) {
             const error = {
-                Error: 'Could Not Generate Token Account info Insufficient',
+                Error: `Could Not Generate Token: ${err}`,
             };
             reject(error);
         }
@@ -30,7 +27,7 @@ export function generateToken(userInfo) {
 }
 
 export function verifyToken(req, res, next) {
-    if (req.path === '/token') {
+    if (req.path === '/token' || req.path === '/info') {
         next();
         return;
     }

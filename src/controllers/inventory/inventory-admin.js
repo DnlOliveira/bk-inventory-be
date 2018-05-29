@@ -5,7 +5,7 @@ import { mongoDB } from '../../../config';
 import { Book } from '../../models';
 
 const router = express.Router();
-const { collections: { userCollection } } = mongoDB;
+const { collections: { bookCollection } } = mongoDB;
 
 // add book
 router.post('/admin/books', (req, res) => {
@@ -18,7 +18,7 @@ router.post('/admin/books', (req, res) => {
         icon: req.body.icon,
     });
 
-    db.collection(userCollection).insertOne(newBook, (err, result) => {
+    db.collection(bookCollection).insertOne(newBook, (err, result) => {
         if (err) return err;
         res.send(result);
     });
@@ -28,30 +28,50 @@ router.post('/admin/books', (req, res) => {
 // remove book
 router.delete('/admin/books', (req, res) => {
     const { db } = req.app.locals;
-    const filter = { id: req.body.id };
 
-    db.collection(userCollection).deleteOne(filter, (err, result) => {
+    if (!req.body.title && !req.body.author) {
+        res.status(400).send({ Error: 'Both title & author required' });
+    }
+    const filter = {
+        title: req.body.title,
+        author: req.body.author,
+    };
+
+    db.collection(bookCollection).deleteOne(filter, (err, result) => {
         if (err) return err;
         res.send(result);
     });
 });
 
 // update book
-router.put('/admin/books', (req, res) => {
+router.put('/admin/books', async (req, res) => {
     const { db } = req.app.locals;
-    const filter = {
-        author: req.body.author,
-        title: req.body.title,
-    };
+    
+    if (!req.body.filter.title && !req.body.filter.author) {
+        res.status(400).send({ Error: 'Both title & author required' });
+    }
+   const filter = {
+       title: req.body.filter.title,
+       author: req.body.filter.author,
+   };
 
-    db.collection(userCollection).updateOne(
-        filter,
-        { $set: {}, $currentDate: { lastModified: true } },
-        (err, result) => {
-            if (err) return err;
-            res.send(result);
-        }
-    );
+    const query = {}
+    if (req.body.query.icon) query.icon = req.body.query.icon;
+    if (req.body.query.title) query.title = req.body.query.title;
+    if (req.body.query.rating) query.rating = req.body.query.rating;
+    if (req.body.query.author) query.author = req.body.query.author;
+    if (req.body.query.published) query.published = req.body.query.published;
+
+    try {
+        const result = await db.collection(bookCollection).updateOne(
+            filter,
+            { $set: query, $currentDate: { lastModified: true } },
+            { upsert: false }
+        );
+        res.send({ result });
+    } catch (err) {
+        res.status(400).send({ Error: 'Unable to update document' });
+    }
 });
 
 export default router;

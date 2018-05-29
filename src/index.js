@@ -15,5 +15,6 @@ app.use(routes);
 (async function main() {
     const mongodb = new MongoDB(mongoDB.url);
     const connection = await mongodb.connect();
+    app.locals.db = mongodb;
     app.listen(PORT, () => console.log('App listening on port %s', PORT));
 }());

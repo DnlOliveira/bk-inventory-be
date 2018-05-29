@@ -4,6 +4,7 @@ import express from 'express';
 
 // controllers
 import users from './accounts/users';
+import inventoryUser from './inventory/inventory-user';
 import inventoryAdmin from './inventory/inventory-admin';
 import inventorySearch from './inventory/inventory-search';
 
@@ -15,8 +16,10 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.use(users);
+router.use(inventoryUser);
 router.use(inventoryAdmin);
 router.use(inventorySearch);
+
 
 router.get('/info', (req, res) => {
     const { db } = req.app.locals;
@@ -48,13 +51,8 @@ router.post('/token', async (req, res) => {
         res.status(400).send(err);
     });
     const token = await generateToken(userInfo).catch((err) => res.status(400).send(err));
-    res.send({ token });
 
-    // verifyCredentials(mongoConnection, { userName, hash }).then((userInfo) => {
-    //     generateToken(userInfo).then((token) => {
-    //         res.send({ token });
-    //     }).catch((err) => res.status(400).send(err));
-    // }).catch((err) => res.status(400).send(err));
+    res.send({ token });
 });
 
 export default router;
